@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "c653b87a-e899-4fcb-90a3-2324f8014b18",
+		"name": "Api Clinica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45750874",
+		"_collection_link": "https://kati-294013.postman.co/workspace/Kati's-Workspace~cb12a7bb-7256-4b8e-8e58-39eb2153d52d/collection/45750874-c653b87a-e899-4fcb-90a3-2324f8014b18?action=share&source=collection_link&creator=45750874"
+	},
+	"item": [
+		{
+			"name": "Cadastro de médicos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nome\": \"Carlos Fonseca\",\r\n\"email\": \"carlos.fonseca@voll.med\",\r\n\"telefone\": \"021999998585\",\r\n\"crm\": \"01010\",\r\n\"especialidade\": \"CARDIOLOGIA\",\r\n\"endereco\": {\r\n    \"logradouro\": \"rua 22\",\r\n    \"bairro\": \"Flamengo\",\r\n    \"cep\": \"12345678\",\r\n    \"cidade\": \"Rio de Janeiro\",\r\n    \"uf\": \"RJ\",\r\n    \"numero\": \"5\",\r\n    \"complemento\": \"complemento\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro de pacientes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nome\": \"Ceci Fernandes\",\r\n\"email\": \"ceci.fernandes@voll.med\",\r\n\"telefone\": \"021999998585\",\r\n\"cpf\": \"08526974100\",\r\n\"endereco\": {\r\n    \"logradouro\": \"rua 1\",\r\n    \"bairro\": \"bairro\",\r\n    \"cep\": \"12345678\",\r\n    \"cidade\": \"Brasilia\",\r\n    \"uf\": \"DF\",\r\n    \"numero\": \"1\",\r\n    \"complemento\": \"complemento\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listagem de Médicos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listagem de Médicos com paginação",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter médico por ID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Listagem de pacientes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nome\": \"Ceci Fernandes\",\r\n\"email\": \"ceci.fernandes@voll.med\",\r\n\"telefone\": \"021999998585\",\r\n\"cpf\": \"08526974100\",\r\n\"endereco\": {\r\n    \"logradouro\": \"rua 1\",\r\n    \"bairro\": \"bairro\",\r\n    \"cep\": \"12345678\",\r\n    \"cidade\": \"Brasilia\",\r\n    \"uf\": \"DF\",\r\n    \"numero\": \"1\",\r\n    \"complemento\": \"complemento\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes?sort=nome,desc&page=1&size=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "nome,desc"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter paciente por ID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Médicos",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n        {\r\n            \"nome\": \"Jonas Silva Matoso\",\r\n            \"email\": \"jonas.silva.matoso@voll.med\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/medicos/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar paciente",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n        {\r\n            \"nome\": \"Iara Fernades Araujo\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Médico",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Paciente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

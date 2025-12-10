@@ -1,0 +1,74 @@
+package med.voll.api.controller;
+
+import jakarta.validation.Valid;
+import med.voll.api.medico.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("medicos")
+public class MedicoController {
+
+    @Autowired
+    private final MedicoService service;
+
+    public MedicoController(MedicoService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity cadastrar(@RequestBody @Valid CadastroDadosMedico dados, UriComponentsBuilder uriBuilder) {
+        var medico = dados.toEntity();
+        service.save(medico);
+
+        var uri = uriBuilder.path("/medicos/{id}")
+                .buildAndExpand(medico.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri)
+                .body(new DadosDetalhamentoMedico(medico));
+    }
+
+    @GetMapping
+    public Page<DadosListaMedicos> listarMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return service.listarMedicos(paginacao).map(DadosListaMedicos::new);
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoMedico> obterMedico(@PathVariable Long id) {
+        return service.obterMedico(id)
+                .map(medico -> ResponseEntity.ok(new DadosDetalhamentoMedico(medico)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity atualizarMedico(@PathVariable Long id, @RequestBody @Valid AtualizacaoDadosMedico dadosMedico) {
+
+        var medico = dadosMedico.toEntity();
+        service.atualizar(id, medico);
+
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity inativarMedico(@PathVariable Long id) {
+
+        Optional<Medico> medico = service.inativar(id);
+        if (medico.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        if (!medico.get().isAtivo()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico.get()));
+
+    }
+}
