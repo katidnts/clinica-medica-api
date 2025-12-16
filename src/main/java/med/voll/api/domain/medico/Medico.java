@@ -1,18 +1,17 @@
-package med.voll.api.paciente;
+package med.voll.api.domain.medico;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import med.voll.api.endereco.Endereco;
+import med.voll.api.domain.endereco.Endereco;
 
 @Entity
-@Table(name = "pacientes")
+@Table(name = "medicos")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Paciente {
-
+public class Medico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +19,11 @@ public class Paciente {
     private String nome;
     private String email;
     private String telefone;
-    private String cpf;
+    private String crm;
+
+    @Enumerated(EnumType.STRING)
+    private Especialidade especialidade;
+
     @Embedded
     private Endereco endereco;
 
@@ -29,4 +32,6 @@ public class Paciente {
     public Boolean isAtivo() {
         return ativo;
     }
+
+
 }

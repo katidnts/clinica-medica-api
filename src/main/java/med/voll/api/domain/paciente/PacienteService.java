@@ -1,4 +1,4 @@
-package med.voll.api.paciente;
+package med.voll.api.domain.paciente;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

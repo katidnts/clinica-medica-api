@@ -1,4 +1,4 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -23,14 +23,13 @@ public class MedicoService {
 
     @Transactional
     public Medico atualizar(Long id, Medico medicoAtualizado) {
-        var medico = repository.getReferenceById(id);
+        Medico medico = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Não foi encontrado um médico com o id: " + id));
 
         if (medicoAtualizado.getNome() != null) {
             medico.setNome(medicoAtualizado.getNome());
         }
         if (medicoAtualizado.getTelefone() != null) {
             medico.setTelefone(medicoAtualizado.getTelefone());
-
         }
         if (medicoAtualizado.getEmail() != null) {
             medico.setEmail(medicoAtualizado.getEmail());

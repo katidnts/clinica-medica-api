@@ -1,7 +1,8 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.medico.*;
+import med.voll.api.domain.medico.*;
+import med.voll.api.domain.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -25,10 +27,10 @@ public class MedicoController {
 
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroDadosMedico dados, UriComponentsBuilder uriBuilder) {
-        var medico = dados.toEntity();
+        Medico medico = dados.toEntity();
         service.save(medico);
 
-        var uri = uriBuilder.path("/medicos/{id}")
+        URI uri = uriBuilder.path("/medicos/{id}")
                 .buildAndExpand(medico.getId())
                 .toUri();
 
@@ -37,9 +39,9 @@ public class MedicoController {
     }
 
     @GetMapping
-    public Page<DadosListaMedicos> listarMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return service.listarMedicos(paginacao).map(DadosListaMedicos::new);
-
+    public ResponseEntity<Page<DadosListaMedicos>> listarMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        Page<DadosListaMedicos> page = service.listarMedicos(paginacao).map(DadosListaMedicos::new);
+        return ResponseEntity.ok(page);  
     }
 
     @GetMapping("/{id}")
@@ -52,10 +54,10 @@ public class MedicoController {
     @PatchMapping("/{id}")
     public ResponseEntity atualizarMedico(@PathVariable Long id, @RequestBody @Valid AtualizacaoDadosMedico dadosMedico) {
 
-        var medico = dadosMedico.toEntity();
-        service.atualizar(id, medico);
+        Medico medico = dadosMedico.toEntity();
+        Medico medicoAtualizado = service.atualizar(id, medico);
 
-        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medicoAtualizado));
     }
 
     @DeleteMapping("/{id}")
