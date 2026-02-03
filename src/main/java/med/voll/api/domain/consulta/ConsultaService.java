@@ -21,13 +21,13 @@ public class ConsultaService {
     private PacienteRepository pacienteRepository;
 
     public void agendar(DadosConsulta dados) {
-        if (!pacienteRepository.existsById(dados.idPaciente())){
+        if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ValidacaoException("Id do paciente informado não existe");
         }
-        if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())){
+        if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
             throw new ValidacaoException("Id do médico informado não existe");
         }
-            var medico = escolherMedico(dados);
+        var medico = escolherMedico(dados);
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         Consulta consulta = new Consulta(null, medico, paciente, dados.data(), dados.especialidade());
         consultaRepository.save(consulta);
@@ -35,10 +35,10 @@ public class ConsultaService {
 
     private Medico escolherMedico(DadosConsulta dados) {
 
-        if(dados.idMedico() != null){
+        if (dados.idMedico() != null) {
             return medicoRepository.getReferenceById(dados.idMedico());
         }
-        if (dados.especialidade() == null){
+        if (dados.especialidade() == null) {
             throw new ValidacaoException("Especialidade é obrigatória quando o médico não for informado");
         }
 
