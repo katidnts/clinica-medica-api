@@ -12,7 +12,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     Page<Medico> findAllByAtivoTrue(Pageable paginacao);
 
     @Query(value = """
-            SELECT m FROM medicos m
+            SELECT * FROM medicos m
             WHERE\s
             m.ativo = true\s
             AND\s
@@ -23,7 +23,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
                         WHERE
                         c.data = :data
            AND
-                        c.motivoCancelamento is null
+                        c.motivo is null
             )
             ORDER BY RANDOM()
             LIMIT 1\s
