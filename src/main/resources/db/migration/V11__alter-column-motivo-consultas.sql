@@ -1,0 +1,2 @@
+ALTER TABLE consultas
+ALTER COLUMN motivo DROP NOT NULL;

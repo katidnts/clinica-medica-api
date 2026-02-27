@@ -3,6 +3,7 @@ package med.voll.api.domain.consulta;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import lombok.*;
+import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.medico.Especialidade;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.paciente.Paciente;
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 @Table(name = "consultas")
 @Entity(name = "consulta")
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -34,6 +34,33 @@ public class Consulta {
 
     private LocalDateTime data;
 
+    @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
 
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivo;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public Consulta(Medico medico, Paciente paciente,
+                    LocalDateTime data, Especialidade especialidade) {
+
+        this.medico = medico;
+        this.paciente = paciente;
+        this.data = data;
+        this.especialidade = especialidade;
+        this.status = Status.AGENDADA;
+    }
+
+    public void cancelar(MotivoCancelamento motivo){
+
+        if (this.status != Status.AGENDADA) {
+            throw new ValidacaoException("Somente consultas agendadas podem ser canceladas");
+        }
+
+        this.motivo = motivo;
+        this.status = Status.CANCELADA;
+
+    }
 }
