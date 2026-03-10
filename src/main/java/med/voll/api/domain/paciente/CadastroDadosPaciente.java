@@ -35,4 +35,5 @@ public record CadastroDadosPaciente(
         return paciente;
 
     }
+
 }

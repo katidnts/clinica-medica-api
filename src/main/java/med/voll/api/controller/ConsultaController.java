@@ -20,10 +20,9 @@ public class ConsultaController {
     @Transactional
     public ResponseEntity agendarConsulta(@RequestBody @Valid DadosConsulta dadosConsulta){
 
+        var dto = service.agendar(dadosConsulta);
 
-        service.agendar(dadosConsulta);
-
-        return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null, null, null));
+        return ResponseEntity.ok(dto);
     }
 
     @PatchMapping("/{id}")
