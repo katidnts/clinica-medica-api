@@ -1,100 +1,230 @@
-# 🏥 API REST – Clínica Médica
+## 🏥 Clínica Médica API
 
-API REST desenvolvida em **Java + Spring Boot**, voltada para o gerenciamento de médicos em uma clínica médica.  
-O projeto foi construído com foco em **boas práticas, validação robusta, arquitetura limpa e modelagem consistente**, representando um exemplo realista de aplicação backend corporativa.
 
----
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-brightgreen)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Maven](https://img.shields.io/badge/Maven-Build-red)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
 
-## 🚀 Objetivo do Projeto
+## 📌 Descrição
 
-Este projeto demonstra domínio dos principais conceitos usados no desenvolvimento de APIs modernas com Spring Boot, incluindo:
+API REST desenvolvida com **Java e Spring Boot** para gerenciamento de uma clínica médica, permitindo o **cadastro de médicos e pacientes**, além do **agendamento e cancelamento de consultas**.
 
-- Arquitetura em camadas  
-- DTOs para entrada e saída de dados  
-- Validação estruturada com Bean Validation  
-- Persistência com JPA/Hibernate  
-- Paginação automática com Pageable  
-- Modelagem clara de entidades e objetos de valor  
-- Regras de negócio desacopladas do controller  
+O projeto foi desenvolvido com foco em **boas práticas de desenvolvimento backend**, utilizando:
 
----
-
-## 🧩 Tecnologias Utilizadas
-
-- **Java 17**
-- **Spring Boot 3**
-- **Spring Web**
-- **Spring Data JPA**
-- **Hibernate**
-- **PostgreSQL**
-- **Maven**
-- **Bean Validation**
-- **DTOs (Records)**
-
-> O projeto não utiliza autenticação JWT nem Flyway, mantendo o foco no backend core.  
-> A estrutura permite expansão futura.
+* Arquitetura em camadas
+* Autenticação com **JWT**
+* Versionamento de banco com **Flyway**
+* **Documentação automática da API**
 
 ---
 
-## 📚 Funcionalidades Implementadas
+# 🚀 Tecnologias Utilizadas
 
-- Cadastro de médicos e pacientes
-- Listagem paginada e ordenada  
-- Detalhamento de médico e paciente por ID  
-- Atualização de dados (com regra para impedir alteração do CRM e do CPF do paciente)  
-- Inativação lógica (soft delete)  
-- Modelo de endereço como **Embeddable**  
-- Validação automática de campos  
-- Estrutura clara de DTOs  
+* **Java 17**
+* **Spring Boot 3**
+* **Spring Web**
+* **Spring Data JPA**
+* **Hibernate**
+* **Spring Security**
+* **JWT (JSON Web Token)**
+* **Flyway** (versionamento de banco de dados)
+* **Swagger / OpenAPI** (documentação da API)
+* **PostgreSQL**
+* **Bean Validation**
+* **Maven**
+
 ---
 
-## 🛠️ Variáveis de Ambiente
+# 🎯 Objetivo do Projeto
 
-Antes de executar o projeto, configure as seguintes variáveis de ambiente:
+Este projeto foi desenvolvido como parte do aprofundamento em desenvolvimento backend com **Java e Spring Boot, com foco na construção de APIs REST** seguindo boas práticas de arquitetura, segurança e persistência de dados, incluindo:
 
-| Variável | Descrição |
-|---------|-----------|
-| `DB_URL` | URL completa de conexão com o PostgreSQL (`jdbc:postgresql://host:porta/banco`) |
-| `DB_NAME` | Usuário do banco de dados |
-| `DB_PASSWORD` | Senha do banco de dados |
+* Arquitetura em camadas
+* **DTO Pattern** para comunicação com a API
+* Validação robusta de dados
+* Persistência com **JPA/Hibernate**
+* Paginação automática com **Spring Data**
+* Autenticação segura com **JWT**
+* Versionamento de banco com **Flyway**
+* Documentação automática da API com **Swagger**
+* Implementação de **regras de negócio para agendamento de consultas**
+
+---
+
+# 🧩 Arquitetura do Projeto
+
+A aplicação segue uma **arquitetura em camadas** para melhor organização e manutenção do código.
+
+## Camadas da aplicação
+
+```text
+Controller → Camada responsável pelas requisições HTTP
+Service → Contém regras de negócio
+Repository → Camada de acesso ao banco de dados
+Domain → Entidades e DTOs da aplicação
+```
+
+Essa separação permite:
+
+* **Maior desacoplamento entre as camadas**
+* **Melhor testabilidade**
+* **Código mais organizado e manutenível**
+
+## Fluxo de requisição na aplicação
+
+```text  
+Client  
+↓  
+Controller  
+↓  
+Service (regras de negócio)  
+↓  
+Repository  
+↓  
+Database (PostgreSQL)
+```
+
+---
+
+# 📚 Funcionalidades Implementadas
+
+## 👨‍⚕️ Médicos
+
+* Cadastro de médicos
+* Listagem paginada
+* Detalhamento por ID
+* Atualização parcial de dados
+* Inativação lógica (**soft delete**)
+
+---
+
+## 🧍 Pacientes
+
+* Cadastro de pacientes
+* Listagem paginada
+* Detalhamento por ID
+* Atualização parcial de dados
+* Inativação lógica (**soft delete**)
+
+---
+
+## 📅 Consultas
+
+* Agendamento de consultas
+* Cancelamento de consultas
+* Aplicação de regras de negócio no agendamento
+* Validação de dados da consulta
+
+---
+
+## 🔐 Segurança
+
+* Autenticação utilizando **JWT**
+* Proteção de endpoints com **Spring Security**
+
+---
+
+## 🗄️ Banco de Dados
+
+* Persistência com **PostgreSQL**
+* Versionamento de banco utilizando **Flyway**
+* Migrações executadas automaticamente na inicialização da aplicação
+
+---
+
+## 📖 Documentação da API
+
+* Documentação automática com **Swagger / OpenAPI**
+* Interface interativa para teste dos endpoints
+
+---
+
+# ⚙️ Como Executar o Projeto
+
+## 1️⃣ Clonar o repositório
+
+```bash
+git clone https://github.com/katidnts/clinica-medica-api.git
+```
+
+---
+
+## 2️⃣ Configurar variáveis de ambiente
+
+A aplicação utiliza **variáveis de ambiente** para configuração do banco de dados e autenticação.
+
+### Variáveis necessárias
+
+| Variável    | Descrição                               |
+| ----------- | --------------------------------------- |
+| DB_URL      | URL de conexão com o PostgreSQL         |
+| DB_USERNAME     | Usuário do banco                        |
+| DB_PASSWORD | Senha do banco                          |
+| JWT_SECRET  | Chave secreta para geração do token JWT |
+
+---
 
 ### Windows (PowerShell)
+
 ```powershell
 setx DB_URL "jdbc:postgresql://localhost:5432/clinica"
-setx DB_NAME "postgres"
+setx DB_USERNAME "postgres"
 setx DB_PASSWORD "sua_senha"
+setx JWT_SECRET "seu_token_secreto"
 ```
 
-```Linux/macOS
+---
+
+### Linux / macOS
+
+```bash
 export DB_URL="jdbc:postgresql://localhost:5432/clinica"
-export DB_NAME="postgres"
+export DB_USERNAME="postgres"
 export DB_PASSWORD="sua_senha"
-
+export JWT_SECRET="seu_token_secreto"
 ```
----
-
-## 🧪 Collection Postman
-
-O repositório contém uma **collection completa do Postman**, facilitando testes imediatos da API.
-
-Arquivo disponível em:
-/postman/clinica-medica.postman_collection.json
-
-
-Basta importar no Postman.
 
 ---
 
-# 📌 **Endpoints da API**
+## 3️⃣ Executar a aplicação
 
-Abaixo estão todos os endpoints organizados, com exemplos de requisição e resposta.
+```bash
+./mvnw spring-boot:run
+```
 
+ou
 
-## 🩺 Médico
+```bash
+mvn spring-boot:run
+```
 
 ---
 
-## 📍 **1. Cadastrar médico**
+# 📖 Documentação da API
+
+Após iniciar a aplicação, acesse a interface do **Swagger**:
+
+```text
+http://localhost:8080/swagger-ui.html
+```
+
+ou
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+Essa interface permite:
+
+* Visualizar todos os endpoints da API
+* Testar requisições diretamente pelo navegador
+
+# 🔗 Principais Endpoints
+
+
+**1. Cadastrar médico**
 
 **POST** `/medicos`
 
@@ -117,7 +247,8 @@ Abaixo estão todos os endpoints organizados, com exemplos de requisição e res
   }
 }
 ```
-### 📥 Response(201)
+### 📥 Response (201)
+
 ```
 {
   "id": 1,
@@ -136,13 +267,11 @@ Abaixo estão todos os endpoints organizados, com exemplos de requisição e res
         "uf": "SP"
 }
 ```
----
-
 ## 📍 **2. Listar médicos (paginação)**
 
 **GET** `/medicos?page=0&size=10&sort=nome`
 
-### 📥 Response(200)
+### 📥 Response (200)
 
 ```
 {
@@ -161,185 +290,86 @@ Abaixo estão todos os endpoints organizados, com exemplos de requisição e res
 }
 ```
 
-## 📍 **3. Detalhar médico**
+## 📍 **3. Agendar consulta**
 
-**GET** `/medicos/{id}`
-
-### 📥 Response(200)
-```
-{
-  "id": 1,
- "nome": "Maria Silva",
-    "email": "maria.silva@clinica.com",
-    "telefone": "11999990000",
-    "crm": "112233",
-    "especialidade": "CARDIOLOGIA",
-    "endereco": {
-        "logradouro": "Rua das Flores",
-        "numero": "100",
-        "complemento": "Sala 20",
-        "bairro": "Centro",
-        "cep": "12345000",
-        "cidade": "São Paulo",
-        "uf": "SP"
-}
-```
-## 📍 **4. Atualizar médico**
-
-**PATCH** `/medicos/{id}`
+**POST** `/consultas`
 
 ### 📤 Request body
 
-```
-{
-  "telefone": "11900001111"
+```json
+{  
+"idPaciente": 4,  
+"especialidade": "CARDIOLOGIA",  
+"data": "2026-06-06T16:00"  
 }
 
 ```
-### 📥 Response(200)
 
-```
-{
-    "id": null,
-    "nome": null,
-    "email": null,
-    "telefone": "11900001111",
-    "crm": null,
-    "especialidade": null,
-    "endereco": null
+## 📍 **4. Cancelar consulta**
+
+
+**PATCH** `/consultas/{id}`
+
+### 📤 Request body
+
+```json
+{  
+"motivo": "PACIENTE_DESISTIU"  
 }
 ```
+
+
 ---
 
-## 📍 **5. Inativar médico**
+# 🧪 Testando a API
 
-**DELETE** `/medicos/{id}`
+O repositório contém uma **collection do Postman** com todos os endpoints configurados.
 
-### 📥 Response(204)
+### Arquivo disponível em
 
-
-## 🧍 Paciente
-
-
-## 📍 **1. Cadastrar paciente**
-
-**POST** `/pacientes`
-
-### 📤 Request body
-
-```
-{
-  "nome": "João Pereira",
-  "email": "joao.pereira@mail.com",
-  "cpf": "12345678900",
-  "telefone": "11988887777",
-  "endereco": {
-    "logradouro": "Rua Central",
-    "bairro": "Centro",
-    "cep": "12345000",
-    "cidade": "São Paulo",
-    "uf": "SP",
-    "numero": "150",
-    "complemento": "Apto 12"
-  }
-}
-
-```
-### 📥 Response(201)
-
-```
-{
-    "id": 5,
-    "nome": "João Pereira",
-    "email": "joao.pereira@mail.com",
-    "telefone": "11988887777",
-    "endereco": {
-        "logradouro": "Rua Central",
-        "numero": "150",
-        "complemento": "Apto 12",
-        "bairro": "Centro",
-        "cep": "12345000",
-        "cidade": "São Paulo",
-        "uf": "SP"
-    }
-}
+```text
+/postman/clinica-medica.postman_collection.json
 ```
 
-## 📍 **2. Listar pacientes (paginação)**
+### Como usar
 
-**GET** `/pacientes?page=0&size=10&sort=nome`
+1. Abrir o **Postman**
+2. Importar a collection
+3. Executar as requisições da API
 
-### 📥 Response(200)
+---
 
-```
-{
-  "content": [
-    {
-      "id": 1,
-      "nome": "João Pereira",
-      "email": "joao.pereira@mail.com",
-      "telefone": "11988887777",
-      "cpf": "12345678900"
-    }
-  ],
-  "totalElements": 1,
-  "totalPages": 1,
-  "size": 10
-}
+# 📦 Estrutura do Projeto
 
-```
-
-
-## 📍 **3. Detalhar paciente**
-
-**GET** `/pacientes/{id}`
-
-### 📥 Response(200)
-
-```
-{
-    "id": 5,
-    "nome": "João Pereira",
-    "email": "joao.pereira@mail.com",
-    "telefone": "11988887777",
-    "endereco": {
-        "logradouro": "Rua Central",
-        "numero": "150",
-        "complemento": "Apto 12",
-        "bairro": "Centro",
-        "cep": "12345000",
-        "cidade": "São Paulo",
-        "uf": "SP"
-    }
-}
-```
-## 📍 **4. Atualizar paciente**
-
-**PATCH** `/pacientes/{id}`
-
-### 📤 Request body
-
-```
-{
-    "nome": "João Pereira Neto"
- }
+```text
+src
+├── controller
+├── domain
+│   ├── medico
+│   ├── paciente
+│   ├── consulta
+│   └── endereco
+├── repository
+├── service
+├── infra
+└── resources
 ```
 
-### 📥 Response(200)
+---
 
-```
-{
-    "id": null,
-    "nome": "João Pereira Neto",
-    "email": null,
-    "telefone": null,
-    "endereco": null
-}
-```
+# 🔮 Melhorias Futuras
 
+Possíveis evoluções do projeto:
 
-## 📍 **5. Inativar paciente**
+* Containerização com **Docker**
+* Pipeline **CI/CD com GitHub Actions**
+* Deploy em ambiente **cloud**
+* Sistema de **notificações de consultas**
 
-**DELETE** `/pacientes/{id}`
+---
 
-### 📥 Response(204)
+# 👩‍💻 Autora
+
+**Kati Dantas**
+
+* GitHub: https://github.com/katidnts
